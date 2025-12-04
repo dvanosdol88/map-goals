@@ -1,29 +1,33 @@
 'use client';
 
-import { useState } from 'react';
+
 import Link from 'next/link';
 import { GoalCard } from '@/components/ui/GoalCard';
-import { Goal } from '@/types';
+import { useGoalsStore } from '@/modules/mapmaker/state/useGoalsStore';
+import { Goal } from '@/modules/mapmaker/types';
 
 const MOCK_GOALS: Goal[] = [
-    { id: '1', title: 'Retire Early', icon: '🏖️' },
-    { id: '2', title: 'Buy a Home', icon: '🏠' },
-    { id: '3', title: 'Start a Business', icon: '🚀' },
-    { id: '4', title: 'Travel the World', icon: '✈️' },
-    { id: '5', title: 'Pay off Debt', icon: '💳' },
-    { id: '6', title: 'Save for Education', icon: '🎓' },
+    { id: '1', name: 'Retire Early', icon: '🏖️', year: null, cost: null, priority: null },
+    { id: '2', name: 'Buy a Home', icon: '🏠', year: null, cost: null, priority: null },
+    { id: '3', name: 'Start a Business', icon: '🚀', year: null, cost: null, priority: null },
+    { id: '4', name: 'Travel the World', icon: '✈️', year: null, cost: null, priority: null },
+    { id: '5', name: 'Pay off Debt', icon: '💳', year: null, cost: null, priority: null },
+    { id: '6', name: 'Save for Education', icon: '🎓', year: null, cost: null, priority: null },
 ];
 
 export default function SelectGoalsPage() {
-    const [selectedGoals, setSelectedGoals] = useState<string[]>([]);
+    const { goals, addGoal, removeGoal } = useGoalsStore();
 
-    const toggleGoal = (id: string) => {
-        setSelectedGoals(prev =>
-            prev.includes(id)
-                ? prev.filter(g => g !== id)
-                : [...prev, id]
-        );
+    const toggleGoal = (goal: Goal) => {
+        const isSelected = goals.some(g => g.id === goal.id);
+        if (isSelected) {
+            removeGoal(goal.id);
+        } else {
+            addGoal(goal);
+        }
     };
+
+    const hasGoals = goals.length > 0;
 
     return (
         <div className="space-y-6">
@@ -37,17 +41,22 @@ export default function SelectGoalsPage() {
                     <GoalCard
                         key={goal.id}
                         icon={goal.icon || '🎯'}
-                        title={goal.title}
-                        selected={selectedGoals.includes(goal.id)}
-                        onClick={() => toggleGoal(goal.id)}
+                        title={goal.name}
+                        selected={goals.some(g => g.id === goal.id)}
+                        onClick={() => toggleGoal(goal)}
                     />
                 ))}
             </div>
 
             <div className="flex justify-end">
                 <Link
-                    href="/mapmaker/timeline"
-                    className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                    href={hasGoals ? "/mapmaker/timeline" : "#"}
+                    className={`px-4 py-2 rounded transition-colors ${hasGoals
+                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                        : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                        }`}
+                    onClick={(e) => !hasGoals && e.preventDefault()}
+                    aria-disabled={!hasGoals}
                 >
                     Next: Timeline
                 </Link>
