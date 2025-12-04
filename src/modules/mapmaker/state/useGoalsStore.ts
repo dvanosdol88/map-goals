@@ -3,6 +3,7 @@ import { Goal } from '../types';
 
 interface GoalsState {
     goals: Goal[];
+    setGoals: (goals: Goal[]) => void;
     addGoal: (goal: Goal) => void;
     removeGoal: (id: string) => void;
     clearGoals: () => void;
@@ -10,6 +11,7 @@ interface GoalsState {
 
 export const useGoalsStore = create<GoalsState>((set) => ({
     goals: [],
+    setGoals: (goals) => set({ goals }),
     addGoal: (goal) => set((state) => ({
         goals: [...state.goals, goal]
     })),
