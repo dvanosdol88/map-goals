@@ -1,31 +1,65 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 
 interface GoalCardProps {
-    icon: ReactNode;
-    title: string;
+    id: string;
+    name: string;
+    icon: string;
     selected: boolean;
-    onClick: () => void;
+    onToggle: (id: string) => void;
+    disabled?: boolean;
+    className?: string;
 }
 
-export const GoalCard: React.FC<GoalCardProps> = ({ icon, title, selected, onClick }) => {
+export const GoalCard: React.FC<GoalCardProps> = ({
+    id,
+    name,
+    icon,
+    selected,
+    onToggle,
+    disabled = false,
+    className = '',
+}) => {
+    const handleClick = () => {
+        if (!disabled) {
+            onToggle(id);
+        }
+    };
+
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (!disabled && (e.key === 'Enter' || e.key === ' ')) {
+            e.preventDefault();
+            onToggle(id);
+        }
+    };
+
     return (
-        <div
-            onClick={onClick}
+        <button
+            type="button"
+            onClick={handleClick}
+            onKeyDown={handleKeyDown}
+            aria-pressed={selected}
+            disabled={disabled}
             className={`
-        cursor-pointer rounded-lg border p-4 transition-all duration-200
-        flex flex-col items-center justify-center gap-2
-        ${selected
-                    ? 'border-lightGreen ring-2 ring-lightGreen bg-white'
-                    : 'border-gray-200 bg-white hover:border-gray-300'
+                cursor-pointer rounded-lg border p-4 transition-all duration-200
+                flex flex-col items-center justify-center gap-2 text-center
+                focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lightGreen focus-visible:ring-offset-2
+                ${selected
+                    ? 'border-lightGreen ring-2 ring-lightGreen bg-lightGreen/5'
+                    : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
                 }
-      `}
+                ${disabled
+                    ? 'opacity-50 cursor-not-allowed'
+                    : ''
+                }
+                ${className}
+            `}
         >
-            <div className="text-3xl text-gray-700">
+            <div className="text-3xl">
                 {icon}
             </div>
-            <h3 className="text-sm font-medium text-gray-900 text-center">
-                {title}
+            <h3 className="text-sm font-medium text-gray-900">
+                {name}
             </h3>
-        </div>
+        </button>
     );
 };
