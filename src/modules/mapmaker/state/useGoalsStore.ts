@@ -7,6 +7,7 @@ interface GoalsState {
     setGoals: (goals: Goal[]) => void;
     addGoal: (goal: Goal) => void;
     removeGoal: (id: string) => void;
+    updateGoal: (id: string, updates: Partial<Goal>) => void;
     clearGoals: () => void;
 }
 
@@ -20,6 +21,9 @@ export const useGoalsStore = create<GoalsState>()(
             })),
             removeGoal: (id) => set((state) => ({
                 goals: state.goals.filter((g) => g.id !== id)
+            })),
+            updateGoal: (id, updates) => set((state) => ({
+                goals: state.goals.map((g) => g.id === id ? { ...g, ...updates } : g)
             })),
             clearGoals: () => set({ goals: [] }),
         }),

@@ -9,9 +9,10 @@
 | MAP-3 | ✅ Complete | GoalCard Component |
 | MAP-4 | ✅ Complete | PrioritySlider Component |
 | MAP-5 | ✅ Complete | Welcome Screen |
-| MAP-6 | ⏳ Not Started | TBD |
-| MAP-7 | ⏳ Not Started | TBD |
-| MAP-8 | ⏳ Not Started | TBD |
+| MAP-6 | ✅ Complete | Goal Selector Screen |
+| MAP-7 | ✅ Complete | Goal Details Screen |
+| MAP-8 | ✅ Complete | Summary & Confirmation |
+| MAP-9 | ✅ Complete | Local Persistence |
 
 ---
 
@@ -70,18 +71,40 @@
 
 ---
 
-## MAP-6: TBD
-- **Status:** ⏳ Not Started
-- **Spec:** Awaiting requirements
+## MAP-6: Goal Selector Screen
+- **Status:** ✅ Complete
+- **Completed:** 2024-12-05
+- **Summary:** Implemented stateful Goal Selector with preset goals, selection logic, and a "Custom Goal" modal. Connects to Zustand store.
+- **Key files:**
+  - `app/mapmaker/select-goals/page.tsx` - Main selection logic
+  - `app/mapmaker/select-goals/CustomGoalModal.tsx` - Modal for custom goals
+  - `src/data/presetGoals.ts` - Source of presets
 
 ---
 
-## MAP-7: TBD
-- **Status:** ⏳ Not Started
-- **Spec:** Awaiting requirements
+## MAP-7: Goal Details Screen
+- **Status:** ✅ Complete
+- **Completed:** 2024-12-05
+- **Summary:** Implemented details view for selected goals. Allows editing target year, cost, and priority. Uses draft state for editing before committing to store.
+- **Key files:**
+  - `app/mapmaker/goal-details/page.tsx` - Form for editing details
+  - `src/components/ui/PrioritySlider.tsx` - Reused here
 
 ---
 
-## MAP-8: TBD
-- **Status:** ⏳ Not Started
-- **Spec:** Awaiting requirements
+## MAP-8: Summary & Confirmation
+- **Status:** ✅ Complete
+- **Completed:** 2024-12-05
+- **Summary:** Read-only summary of all goals with "Confirm & continue" flow. Includes confirmation checkbox and "Start over" functionality.
+- **Key files:**
+  - `app/mapmaker/summary/page.tsx` - Summary view
+  - `src/components/ui/SummaryCard.tsx` - Display component
+
+---
+
+## MAP-9: Local Persistence
+- **Status:** ✅ Complete
+- **Completed:** 2024-12-05
+- **Summary:** Added Zustand persist middleware to save goals to localStorage ('mapmaker-goals'), ensuring data survives page reloads.
+- **Key files:**
+  - `src/modules/mapmaker/state/useGoalsStore.ts` - Added persist middleware

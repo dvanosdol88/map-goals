@@ -40,12 +40,13 @@ export const GoalCard: React.FC<GoalCardProps> = ({
             aria-pressed={selected}
             disabled={disabled}
             className={`
-                cursor-pointer rounded-lg border p-4 transition-all duration-200
-                flex flex-col items-center justify-center gap-2 text-center
+                cursor-pointer rounded-full border p-2 transition-all duration-200
+                flex flex-col items-center justify-center gap-1 text-center
+                w-32 h-32 aspect-square
                 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-lightGreen focus-visible:ring-offset-2
                 ${selected
-                    ? 'border-lightGreen ring-2 ring-lightGreen bg-lightGreen/5'
-                    : 'border-gray-200 bg-white hover:border-gray-300 hover:shadow-sm'
+                    ? 'border-2 border-deepGreen ring-1 ring-deepGreen bg-lightGreen/10'
+                    : 'border-gray-200 bg-white hover:border-deepGreen/50 hover:shadow-md'
                 }
                 ${disabled
                     ? 'opacity-50 cursor-not-allowed'

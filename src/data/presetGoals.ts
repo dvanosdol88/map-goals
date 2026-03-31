@@ -1,7 +1,7 @@
 import { Goal, createGoal } from '@/modules/mapmaker/types';
 
 export const PRESET_GOALS: Goal[] = [
-    createGoal({ id: 'retire-early', name: 'Retire Early', icon: '🏖️' }),
+    createGoal({ id: 'retire-early', name: 'Retire', icon: '🏖️' }),
     createGoal({ id: 'buy-home', name: 'Buy a Home', icon: '🏡' }),
     createGoal({ id: 'start-business', name: 'Start a Business', icon: '🚀' }),
     createGoal({ id: 'travel-world', name: 'Travel the World', icon: '✈️' }),

@@ -5,9 +5,10 @@ interface SummaryCardProps {
     title: string;
     subtitle: string;
     meta?: string;
+    action?: ReactNode;
 }
 
-export const SummaryCard: React.FC<SummaryCardProps> = ({ icon, title, subtitle, meta }) => {
+export const SummaryCard: React.FC<SummaryCardProps> = ({ icon, title, subtitle, meta, action }) => {
     return (
         <div className="flex items-center p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
             <div className="flex-shrink-0 mr-4 text-2xl text-gray-500">
@@ -26,6 +27,11 @@ export const SummaryCard: React.FC<SummaryCardProps> = ({ icon, title, subtitle,
                     </p>
                 )}
             </div>
+            {action && (
+                <div className="ml-4">
+                    {action}
+                </div>
+            )}
         </div>
     );
 };
